@@ -69,11 +69,11 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-3 col-lg-3">
-                                <label for="situacao" class="form-label fw-medium">Situação</label>
+                                <label for="situacao" class="form-label fw-medium">Status</label>
                                 <select id="situacao" class="form-select">
                                     <option value="">Todas</option>
                                     <option value="ativa">Ativa</option>
-                                    <option value="inativa">Inativa</option>
+                                    <option value="inativa">Inativo</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-3 col-lg-4 d-flex gap-2">
@@ -94,7 +94,7 @@
                                     <th>CNPJ</th>
                                     <th>ENDEREÇO</th>
                                     <th>TELEFONE</th>
-                                    <th>SITUAÇÃO</th>
+                                    <th>STATUS</th>
                                     <th class="text-end pe-4">AÇÕES</th>
                                 </tr>
                             </thead>
@@ -111,9 +111,6 @@
                                         <button type="button" class="btn btn-sm btn-outline-primary me-1" title="Editar">
                                             <i class="bi bi-pen"></i> Editar
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" title="Desativar">
-                                            <i class="bi bi-slash-circle"></i> Desativar
-                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -124,7 +121,7 @@
             </main>
         </div>
 
-    <!-- MODAL 1: CADASTRAR / EDITAR INSTITUIÇÃO -->
+    <!-- MODAL 1: CADASTRAR INSTITUIÇÃO -->
     <div class="modal fade" id="modalInstituicao" tabindex="-1" aria-labelledby="modalInstituicaoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -138,52 +135,49 @@
                     </div>
 
                     <div class="modal-body">
-                        <!-- Campo oculto para guardar o ID na edição -->
                         <input type="hidden" id="instituicaoId">
 
-                        <!-- Barra de Status (Exibida apenas no modo Edição - Página 7 do Mockup) -->
+                        <!-- Barra de Status (Exibida apenas no modo Edição - Página 7) -->
                         <div id="info-edicao-header" class="alert alert-light border d-flex justify-content-between align-items-center py-2 mb-3 d-none">
                             <span class="small fw-semibold">ID <span id="edit-id-display"></span></span>
                             <span class="small">Situação atual: <strong id="edit-status-display">Ativa</strong></span>
                         </div>
 
                         <div class="row g-3">
+                            <!-- Nome Fantasia * -->
                             <div class="col-12">
                                 <label for="nomeFantasia" class="form-label fw-medium">Nome Fantasia <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nomeFantasia" placeholder="Ex.: Clínica Exemplo Saúde" required>
                                 <div class="invalid-feedback" id="erro-nomeFantasia">Informe o nome fantasia.</div>
                             </div>
 
+                            <!-- Razão Social * -->
                             <div class="col-12">
                                 <label for="razaoSocial" class="form-label fw-medium">Razão Social <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="razaoSocial" placeholder="Ex.: Exemplo Saúde Ltda." required>
                                 <div class="invalid-feedback" id="erro-razaoSocial">Informe a razão social.</div>
                             </div>
 
+                            <!-- CNPJ * (Campo Único - Páginas 4 a 7) -->
                             <div class="col-12 col-md-6">
-                                <label for="cnpjMatriz" class="form-label fw-medium">CNPJ (matriz) <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="cnpjMatriz" placeholder="00.000.000/0000-00" maxlength="18" required>
+                                <label for="cnpj" class="form-label fw-medium">CNPJ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
                                 <div class="form-text">Formato 00.000.000/0000-00</div>
-                                <div class="invalid-feedback" id="erro-cnpjMatriz">CNPJ inválido. Use o formato 00.000.000/0000-00.</div>
+                                <div class="invalid-feedback" id="erro-cnpj">CNPJ inválido. Use o formato 00.000.000/0000-00.</div>
                             </div>
 
+                            <!-- Telefone (Opcional - sem asterisco) -->
                             <div class="col-12 col-md-6">
-                                <label for="cnpjFilial" class="form-label fw-medium">CNPJ (filial) <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="cnpjFilial" placeholder="00.000.000/0000-00" maxlength="18" required>
-                                <div class="form-text">Formato 00.000.000/0000-00</div>
-                                <div class="invalid-feedback" id="erro-cnpjFilial">CNPJ da filial inválido. Use o formato 00.000.000/0000-00.</div>
+                                <label for="telefone" class="form-label fw-medium">Telefone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="telefone" placeholder="(00) 0000-0000" maxlength="15">
+                                <div class="invalid-feedback" id="erro-telefone">Informe um telefone válido.</div>
                             </div>
 
+                            <!-- Endereço Completo * -->
                             <div class="col-12">
                                 <label for="endereco" class="form-label fw-medium">Endereço completo <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="endereco" placeholder="Rua, número, bairro, cidade/UF" required>
                                 <div class="invalid-feedback" id="erro-endereco">Informe o endereço completo.</div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <label for="telefone" class="form-label fw-medium">Telefone <span class="text-danger">*</span></label>
-                                <input type="tel" class="form-control" id="telefone" placeholder="(00) 0000-0000" maxlength="15" required>
-                                <div class="invalid-feedback" id="erro-telefone">Informe um telefone válido.</div>
                             </div>
                         </div>
                     </div>
